@@ -1,3 +1,5 @@
+from collections import Counter
+
 users = [
     {"id":0,"name":"Hero"},
     {"id":1,"name":"Dunn"},
@@ -41,8 +43,21 @@ total_connections = sum(number_of_friends(user) for user in users)
 
 num_friends_by_id=[(user["id"],number_of_friends(user)) for user in users]
 
+# Współczynnik centralnośći
 num_friends_by_id.sort(
     key=lambda id_and_friends: id_and_friends[1],
     reverse=True
 )
-print(num_friends_by_id)
+
+# friends of friends
+def friends_of_friend_ids(user):
+    user_id= user["id"]
+    return Counter(
+        foaf_id
+        for friend_id in friendships[user_id]
+        for foaf_id in friendships[friend_id]
+        if foaf_id != user_id
+        and foaf_id not in friendships[user_id]
+    )
+
+print(friends_of_friend_ids(users[3]))
