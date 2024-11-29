@@ -1,0 +1,6 @@
+name: data-science
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - matplotlib
